@@ -1,14 +1,14 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Net.Http;
+using HackerNewsAPI.DBInfra.ModelRepo;
 
 namespace HackerNewsAPI.DBInfra.InterfaceRepo
 {
     public interface IHackerNewsRepository
     {
-        Task<HttpResponseMessage> BestStoriesAsync();
-        Task<HttpResponseMessage> GetStoryByIdAsync(int id);
+        Task<List<int>> BestStoriesAsync();
+        Task<HackerNewsStory> GetStoryByIdAsync(int id);
 
     }
 }

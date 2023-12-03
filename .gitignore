@@ -5,3 +5,5 @@
 /.vs
 /HackerNewsAPI/HackerNewsAPI/obj
 /HackerNewsAPI/HackerNewsAPI/bin/Debug/netcoreapp3.1
+/HackerNewsAPI/.vs/ProjectEvaluation
+/HackerNewsAPI/.vs/HackerNewsAPI/DesignTimeBuild

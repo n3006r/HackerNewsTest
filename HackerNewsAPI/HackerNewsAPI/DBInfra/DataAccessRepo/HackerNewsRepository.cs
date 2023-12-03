@@ -3,27 +3,45 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Net.Http;
 using HackerNewsAPI.DBInfra.InterfaceRepo;
+using Newtonsoft.Json;
+using HackerNewsAPI.DBInfra.ModelRepo;
 
 namespace HackerNewsAPI.DBInfra.DataAccessRepo
 {
     public class HackerNewsRepository : IHackerNewsRepository
     {
-
-        private static HttpClient client = new HttpClient();
+        private static HttpClient client;
 
         public HackerNewsRepository()
         {
-
+            client = new HttpClient();
         }
 
-        public async Task<HttpResponseMessage> BestStoriesAsync()
+        public async Task<List<int>> BestStoriesAsync()
         {
-            return await client.GetAsync("https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty");
+            var response = await client.GetAsync("https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty");
+            var storyIds = new List<int>();
+
+            if (response.IsSuccessStatusCode)
+            {
+                var storiesResponse = response.Content.ReadAsStringAsync().Result;
+                storyIds = JsonConvert.DeserializeObject<List<int>>(storiesResponse);
+            }
+
+            return storyIds;
         }
 
-        public async Task<HttpResponseMessage> GetStoryByIdAsync(int id)
+        public async Task<HackerNewsStory> GetStoryByIdAsync(int storyID)
         {
-            return await client.GetAsync(string.Format("https://hacker-news.firebaseio.com/v0/item/{0}.json", id));
+            HackerNewsStory NewsStory = new HackerNewsStory();
+            var response = await client.GetAsync(string.Format("https://hacker-news.firebaseio.com/v0/item/{0}.json", storyID));
+            if (response.IsSuccessStatusCode)
+            {
+                var storyResponse = response.Content.ReadAsStringAsync().Result;
+                NewsStory = JsonConvert.DeserializeObject<HackerNewsStory>(storyResponse);
+            }
+
+            return NewsStory;
         }
     }
 }
