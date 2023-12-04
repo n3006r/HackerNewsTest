@@ -7,10 +7,12 @@
       <input matInput placeholder="Search" (keyup)="search($event)">
     </div>
 
-    <div *ngFor="let itemStory of hackerNewsStories" (click)="open(itemStory.url)" class="card-full-width">
+    <div *ngFor="let itemStory of hackerNewsStories  | paginate: { itemsPerPage: 10, currentPage: page }" (click)="open(itemStory.url)" class="card-full-width">
       <i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
       <div>{{ itemStory.title }}</div>
       <div>by {{ itemStory.by }}</div>
     </div>
+
+    <pagination-controls (pageChange)="page = $event"></pagination-controls>
   </div>
 </div>

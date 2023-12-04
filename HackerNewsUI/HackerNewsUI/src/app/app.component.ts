@@ -1,4 +1,4 @@
-import { Component, Inject } from "@angular/core";
+import { Component, VERSION } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 
 @Component({
@@ -8,6 +8,7 @@ import { HttpClient } from "@angular/common/http";
 })
 export class AppComponent {
   hackerNewsStories: HackerNewsStory[] | undefined;
+  page: any;
 
   constructor(
     private http: HttpClient) {
