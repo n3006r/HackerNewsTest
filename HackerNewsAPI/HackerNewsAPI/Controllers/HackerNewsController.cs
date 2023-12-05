@@ -22,6 +22,7 @@ namespace HackerNewsAPI.Controllers
             this._repo = repository;
         }
 
+        [HttpGet]
         public async Task<List<HackerNewsStory>> Index(string searchTerm)
         {
             List<HackerNewsStory> bestStories = new List<HackerNewsStory>();
