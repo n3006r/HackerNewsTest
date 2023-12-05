@@ -1,18 +1,27 @@
-<div>
+<div class="mainContainer">
 
-  <h1>Hacker News Top Stories</h1>
+  <h1>Hacker News Stories</h1>
   <p *ngIf="!hackerNewsStories"><em>Loading...</em></p>
   <div *ngIf="hackerNewsStories">
     <div>
-      <input matInput placeholder="Search" (keyup)="search($event)">
+      <form class="example-form">
+        <mat-form-field class="card-full-width">
+          <mat-label>Search Stories</mat-label>
+          <input matInput placeholder="Search here" (keyup)="search($event)" value="Search here .."
+           (mousedown)="checkPH($event)"  (focusout)="checkPHOnUp($event)">
+        </mat-form-field>
+      </form>
     </div>
 
-    <div *ngFor="let itemStory of hackerNewsStories  | paginate: { itemsPerPage: 10, currentPage: page }" (click)="open(itemStory.url)" class="card-full-width">
-      <i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
-      <div>{{ itemStory.title }}</div>
-      <div>by {{ itemStory.by }}</div>
-    </div>
-
+    <ul>
+      <li *ngFor="let itemStory of hackerNewsStories  | paginate: { itemsPerPage: 10, currentPage: page }"
+        (click)="open(itemStory.url)" class="card-full-width">
+        <div type="button" *ngIf="itemStory.url">
+          <p class="badge"><b>{{itemStory.title}}</b></p>
+          <p class="name">By: {{itemStory.by}}</p>
+        </div>
+      </li>
+    </ul>
     <pagination-controls (pageChange)="page = $event"></pagination-controls>
   </div>
 </div>

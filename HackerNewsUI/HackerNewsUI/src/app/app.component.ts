@@ -29,8 +29,17 @@ export class AppComponent {
   }
 
   search(event: KeyboardEvent) {
-    debugger;
     this.get((event.target as HTMLTextAreaElement).value);
+  }
+
+  checkPH($event: any) {
+    if ($event.currentTarget.value.indexOf("Search here")>-1)
+      $event.currentTarget.value = '';
+  }
+
+  checkPHOnUp($event: any) {
+    if ($event.currentTarget.value == "")
+      $event.currentTarget.value = 'Search here ..';
   }
 
   open(url: string) {
