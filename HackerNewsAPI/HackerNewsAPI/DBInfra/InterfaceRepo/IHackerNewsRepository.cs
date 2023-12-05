@@ -9,6 +9,5 @@ namespace HackerNewsAPI.DBInfra.InterfaceRepo
     {
         Task<List<int>> BestStoriesAsync();
         Task<HackerNewsStory> GetStoryByIdAsync(int id);
-
     }
 }
